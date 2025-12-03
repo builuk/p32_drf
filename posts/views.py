@@ -20,3 +20,21 @@ def post_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET','DELETE','PUT'])
+def post_detail(request, pk):
+    post = Post.objects.get(pk=pk)
+
+    if request.method == 'GET':
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
+
+    if request.method == 'DELETE':
+        post.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    if request.method == 'PUT':
+        serializer = PostSerializer(post, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
