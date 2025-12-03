@@ -8,6 +8,20 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from datetime import datetime
+from django.utils import timezone
+
+@api_view(['GET'])
+def time_info(request):
+    now = timezone.now()
+
+    data = {
+        'time': now.strftime('%H:%M:%S'),
+        'date': now.strftime('%Y-%m-%d'),
+        'weekday': now.weekday(),
+    }
+    return Response(data)
+
 @api_view(['GET','POST'])
 def post_list(request):
     if request.method == 'GET':
