@@ -22,6 +22,26 @@ def time_info(request):
     }
     return Response(data)
 
+@api_view(['GET'])
+def greeting(request):
+    now = timezone.now()
+    hour = now.hour
+
+    text = ''
+
+    if 5 <= hour < 12:
+        text = 'Good Morning'
+    elif 12 <= hour < 18:
+        text = 'Good Afternoon'
+    elif 18 <= hour < 24:
+        text = 'Good Evening'
+
+    data = {
+        'time': now.strftime('%H:%M:%S'),
+        'greeting': text,
+    }
+    return Response(data)
+
 @api_view(['GET','POST'])
 def post_list(request):
     if request.method == 'GET':
