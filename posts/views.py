@@ -42,6 +42,20 @@ def greeting(request):
     }
     return Response(data)
 
+@api_view(['POST'])
+def math_operations(request):
+    a,c, b = (str(request.data[k]) for k in ("a","c", "b"))
+    a = int(a)
+    b = int(b)
+    result = eval(f"{a}{c}{b}")
+    data = {
+        'number1': a,
+        'operation': 'c',
+        'number2': b,
+        'result': result
+    }
+    return Response(data)
+
 @api_view(['GET','POST'])
 def post_list(request):
     if request.method == 'GET':
