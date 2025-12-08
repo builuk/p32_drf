@@ -50,7 +50,7 @@ def math_operations(request):
     result = eval(f"{a}{c}{b}")
     data = {
         'number1': a,
-        'operation': 'c',
+        'operation': c,
         'number2': b,
         'result': result
     }
